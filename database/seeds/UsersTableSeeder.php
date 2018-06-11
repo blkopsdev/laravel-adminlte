@@ -17,14 +17,14 @@ class UsersTableSeeder extends Seeder
             [
                 'name' => 'Jon Snow',
                 'email' => 'admin@admin.com',
-                'password' => Hash::make('secret'),
+                'password' => Hash::make('password'),
                 'is_admin' => 1,
                 'logo_number' => 1,
             ],
             [
                 'name' => 'Daenerys Targaryen',
                 'email' => 'member@example.com',
-                'password' => Hash::make('secret'),
+                'password' => Hash::make('password'),
                 'is_admin' => 0,
                 'logo_number' => 2,
             ]
