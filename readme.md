@@ -20,8 +20,8 @@
 - Testing: Run __phpunit__
 - See [UsersControllerTest](https://github.com/rrpadilla/laravel-adminlte-boilerplate/blob/master/tests/Feature/Controllers/Admin/UsersControllerTest.php)
 - Login with:
-    - Admin: __admin@admin.com__ - __secret__
-    - Member: __member@example.com__ - __secret__
+    - Admin: __admin@admin.com__ - __password__
+    - Member: __member@example.com__ - __password__
 
 ## Compatibility Chart
 
