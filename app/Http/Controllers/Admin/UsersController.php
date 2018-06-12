@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Traits\Controllers\ResourceController;
+use Image;
 
 class UsersController extends Controller
 {
@@ -48,7 +49,7 @@ class UsersController extends Controller
                 'name' => 'required|min:3|max:255',
                 'email' => 'required|email|max:255|unique:users,email',
                 'password' => 'required|confirmed|min:6',
-                'logo_number' => 'required|in:' . implode(',', Utils::getLogosNumber()),
+                // 'logo_number' => 'required|in:' . implode(',', Utils::getLogosNumber()),
             ],
             'messages' => [],
             'attributes' => [],
@@ -68,7 +69,7 @@ class UsersController extends Controller
                 'name' => 'required|min:3|max:255',
                 'email' => 'required|email|max:255|unique:users,email,'.$record->id,
                 'password' => 'nullable|confirmed|min:6',
-                'logo_number' => 'required|in:' . implode(',', Utils::getLogosNumber()),
+                // 'logo_number' => 'required|in:' . implode(',', Utils::getLogosNumber()),
             ],
             'messages' => [],
             'attributes' => [],
@@ -90,7 +91,7 @@ class UsersController extends Controller
         if ($record && Auth::user()->id == $record->id) {
             $values['is_admin'] = Auth::user()->is_admin;
         }
-        $values['logo_number'] = Utils::getValidLogoNumber($request->input('logo_number', 1));
+        // $values['logo_number'] = Utils::getValidLogoNumber($request->input('logo_number', 1));
         // If creating user or providing password.
         $password = $request->input('password', null);
         if ($creating || !empty($password)) {

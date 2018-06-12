@@ -75,27 +75,6 @@
     </div>
     <!-- /.col-xs-12 -->
 
-    <div class="col-xs-12">
-        <div class="form-group margin-b-5 margin-t-5">
-            <label for="logo_number">Logo</label><br/>
-            <div class="box box-info">
-                <div class="box-body no-padding">
-                    <ul class="logo-number users-list clearfix">
-                    @foreach (\App\Utils::getLogosNumber() as $logoNumber)
-                        <li>
-                            <img class="profile-user-img img-responsive img-circle" src="{{ \App\Utils::logoPath($logoNumber) }}" alt="Profile picture {{ $logoNumber }}">
-                            <span class="users-list-date">
-                                <input type="radio" name="logo_number" value="{{ $logoNumber }}" {{ old('logo_number', $record->logo_number) == $logoNumber ? 'checked' : '' }}>
-                            </span>
-                        </li>
-                    @endforeach
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- /.form-group -->
-    </div>
-    <!-- /.col-xs-12 -->
 
 </div>
 <!-- /.col-md-5 -->
