@@ -30,7 +30,7 @@ $_pageSubtitle = '';
             <!-- Profile Image -->
             <div class="box box-primary">
                 <div class="box-body box-profile">
-                    <img class="profile-user-img img-responsive img-circle" src="{{ asset('/uploads/avatars/' . $user->avatar) }}" alt="User profile picture">
+                    <img class="profile-user-img img-responsive img-circle" src="{{ asset($user->avatar) }}" alt="User profile picture">
 
                     <h3 class="profile-username text-center">{{ Auth::user()->name }}</h3>
 
@@ -49,7 +49,7 @@ $_pageSubtitle = '';
                 </ul>
                 <div class="tab-content">
                     <div class="active tab-pane" id="settings">
-                        <form class="form-horizontal" role="form" method="POST" action="{{ route('dashboard::profile.update') }}">
+                        <form enctype="multipart/form-data"  class="form-horizontal" role="form" method="POST" action="{{ route('dashboard::profile.update') }}">
                             {!! csrf_field() !!}
 
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -103,7 +103,19 @@ $_pageSubtitle = '';
                                     @endif
                                 </div>
                             </div>
+                                <div class="form-group{{ $errors->has('avatar') ? ' has-error' : '' }}">
+                                    <label class="col-sm-2 control-label">Update Profile Image</label>
 
+                                    <div class="col-sm-10">
+                                        <input type="file" name="avatar">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        @if ($errors->has('avatar'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('avatar') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -118,16 +130,6 @@ $_pageSubtitle = '';
             <!-- /.nav-tabs-custom -->
         </div>
         <!-- /.col -->
-        <div class="col-md-10 col-md-offset-1">
-            <img src="/uploads/avatars/{{ $user->avatar }}" style="width:150px; height:150px; float:left; border-radius:50%; margin-right:25px;">
-            <h2>{{ $user->name }}'s Profile</h2>
-            <form enctype="multipart/form-data" action="{{ route('dashboard::profile.avatar_update') }}" method="POST">
-                <label>Update Profile Image</label>
-                <input type="file" name="avatar">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <input type="submit" class="pull-right btn btn-sm btn-primary">
-            </form>
-        </div>
     </div>
     <!-- /.row -->
 @endsection
