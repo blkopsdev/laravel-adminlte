@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Image;
 
 class ProfileController extends Controller
 {
@@ -17,7 +18,7 @@ class ProfileController extends Controller
      */
     public function showProfile()
     {
-        return view('dashboard.profile.index');
+        return view('dashboard.profile.index', array('user' => Auth::user()));
     }
 
     /**
@@ -33,19 +34,18 @@ class ProfileController extends Controller
             'name' => 'required|min:3|max:255',
             'email' => 'required|email|max:255|unique:users,email,'.$user->id,
             'password' => 'nullable|confirmed|min:6',
-            'logo_number' => 'required|in:' . implode(',', Utils::getLogosNumber()),
+            
         ]);
 
         $updateValues = [
             'name' => $request->input('name', $user->name),
             'email' => $request->input('email', $user->email),
-            'logo_number' => Utils::getValidLogoNumber($request->input('logo_number', $user->logo_number)),
         ];
         $password = $request->input('password', null);
         if (!empty($password)) {
             $updateValues['password'] = Hash::make($password);
         }
-
+       
         if ($user->update($updateValues)) {
             flash()->success('Profile updated successfully.');
         } else {
@@ -53,5 +53,20 @@ class ProfileController extends Controller
         }
 
         return redirect(route('dashboard::profile'));
+    }
+    public function avatar_update(Request $request)
+    {
+        // Logic for user upload of avatar
+        if($request->hasFile('avatar')){
+            $avatar = $request->file('avatar');
+            $filename = time() . '.' . $avatar->getClientOriginalExtension();
+            Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/' . $filename ) );
+ 
+            $user = Auth::user();
+            $user->avatar = $filename;
+            $user->save();
+        }
+ 
+        return view('dashboard.profile.index', array('user' => Auth::user()) );
     }
 }

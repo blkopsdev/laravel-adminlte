@@ -30,7 +30,7 @@ $_pageSubtitle = '';
             <!-- Profile Image -->
             <div class="box box-primary">
                 <div class="box-body box-profile">
-                    <img class="profile-user-img img-responsive img-circle" src="{{ Auth::user()->getLogoPath() }}" alt="User profile picture">
+                    <img class="profile-user-img img-responsive img-circle" src="{{ asset('/uploads/avatars/' . $user->avatar) }}" alt="User profile picture">
 
                     <h3 class="profile-username text-center">{{ Auth::user()->name }}</h3>
 
@@ -105,26 +105,6 @@ $_pageSubtitle = '';
                             </div>
 
                             <div class="form-group">
-                                <label for="logo_number" class="col-sm-2 control-label">Logo</label>
-                                <div class="col-sm-10">
-                                    <div class="box box-info">
-                                        <div class="box-body no-padding">
-                                            <ul class="logo-number users-list clearfix">
-                                            @foreach (\App\Utils::getLogosNumber() as $logoNumber)
-                                                <li>
-                                                    <img class="profile-user-img img-responsive img-circle" src="{{ \App\Utils::logoPath($logoNumber) }}" alt="Profile picture {{ $logoNumber }}">
-                                                    <span class="users-list-date">
-                                                        <input type="radio" name="logo_number" value="{{ $logoNumber }}" {{ old('logo_number', Auth::user()->logo_number) == $logoNumber ? 'checked' : '' }}>
-                                                    </span>
-                                                </li>
-                                            @endforeach
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
@@ -138,7 +118,16 @@ $_pageSubtitle = '';
             <!-- /.nav-tabs-custom -->
         </div>
         <!-- /.col -->
-
+        <div class="col-md-10 col-md-offset-1">
+            <img src="/uploads/avatars/{{ $user->avatar }}" style="width:150px; height:150px; float:left; border-radius:50%; margin-right:25px;">
+            <h2>{{ $user->name }}'s Profile</h2>
+            <form enctype="multipart/form-data" action="{{ route('dashboard::profile.avatar_update') }}" method="POST">
+                <label>Update Profile Image</label>
+                <input type="file" name="avatar">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="submit" class="pull-right btn btn-sm btn-primary">
+            </form>
+        </div>
     </div>
     <!-- /.row -->
 @endsection
