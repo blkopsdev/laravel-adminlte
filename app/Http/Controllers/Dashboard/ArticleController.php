@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Article;
 
 class ArticleController extends Controller
 {
@@ -13,7 +15,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        //
+        $articles = Article::latest()->paginate(10);
+        return view('dashboard.article.index', compact('articles'))->with('i', (request()->input('page', 1) - 1 ) * 10);
     }
 
     /**
@@ -23,7 +26,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.article.create');
     }
 
     /**
@@ -34,7 +37,12 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+        ]);
+        Article::create($request->all());
+        return redirect()->route('articles.index')->with('success', 'Article created successfully');
     }
 
     /**
@@ -45,7 +53,8 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        //
+        $article = Article::find($id);
+        return view('dashboard.article.show', compact('article'));
     }
 
     /**
@@ -56,7 +65,8 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $article = Article::find($id);
+        return view('dashboard.article.edit', compact('article'));
     }
 
     /**
@@ -68,7 +78,12 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'body' => 'requied'
+        ]);
+        Article::find($id)->update($request->all());
+        return redirect()->route('articles.index')->with('success', 'Article updated successfully');
     }
 
     /**
@@ -79,6 +94,7 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Article::find($id)->delete();
+        return redirect()->route('articles.index')->with('success', 'Article deleted successfully');
     }
 }

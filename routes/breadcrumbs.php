@@ -41,6 +41,39 @@ Breadcrumbs::register('profile', function ($breadcrumbs) {
     $breadcrumbs->parent('dashboard');
     $breadcrumbs->push('Profile', route('dashboard::profile'));
 });
+//Dashboard > Article
+$resources = [
+    'articles' => 'Articles',
+];
+foreach ($resources as $resource => $data) {
+    $parent = 'dashboard';
+    $title = $data;
+    if (is_array($data)) {
+        $title = $data['title'];
+        $parent = $data['parent'];
+    }
+    $resource = 'dashboard::' . $resource;
+
+    // List
+    Breadcrumbs::register($resource, function ($breadcrumbs) use ($resource, $title, $parent) {
+        $breadcrumbs->parent($parent);
+        $breadcrumbs->push($title, route($resource.'.index'));
+    });
+    // Create
+    Breadcrumbs::register($resource.'.create', function ($breadcrumbs) use ($resource) {
+        $breadcrumbs->parent($resource);
+        $breadcrumbs->push('Create', route($resource.'.create'));
+    });
+    // Edit
+    Breadcrumbs::register($resource.'.edit', function ($breadcrumbs, $id) use ($resource) {
+        $breadcrumbs->parent($resource);
+        $breadcrumbs->push('Edit', route($resource.'.edit', $id));
+    });
+    Breadcrumbs::register($resource.'.show', function ($breadcrumbs, $id) use ($resource) {
+        $breadcrumbs->parent($resource);
+        $breadcrumbs->push('Edit', route($resource.'.show', $id));
+    });
+}
 
 // Admin
 Breadcrumbs::register('admin', function ($breadcrumbs) {

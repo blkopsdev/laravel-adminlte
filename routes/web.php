@@ -62,7 +62,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('profile', ['as' => 'profile', 'uses' => 'ProfileController@showProfile']);
         Route::post('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@updateProfile']);
         Route::post('profile/avatar_update', ['as' => 'profile.avatar_update', 'uses' => 'ProfileController@avatar_update']);
-        Route::resource('articles', 'ArticleController');
+        Route::resource('articles', 'ArticleController', ['as' => 'articles']);
     });
 
     /**
