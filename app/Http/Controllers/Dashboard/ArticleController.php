@@ -42,7 +42,7 @@ class ArticleController extends Controller
             'body' => 'required',
         ]);
         Article::create($request->all());
-        return redirect()->route('articles.index')->with('success', 'Article created successfully');
+        return redirect()->route('dashboard::articles.index')->with('success', 'Article created successfully');
     }
 
     /**
@@ -83,7 +83,7 @@ class ArticleController extends Controller
             'body' => 'requied'
         ]);
         Article::find($id)->update($request->all());
-        return redirect()->route('articles.index')->with('success', 'Article updated successfully');
+        return redirect()->route('dashboard::articles.index')->with('success', 'Article updated successfully');
     }
 
     /**
@@ -95,6 +95,6 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         Article::find($id)->delete();
-        return redirect()->route('articles.index')->with('success', 'Article deleted successfully');
+        return redirect()->route('dashboard::articles.index')->with('success', 'Article deleted successfully');
     }
 }

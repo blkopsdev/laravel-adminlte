@@ -23,6 +23,7 @@ $_pageSubtitle = '';
 @endsection
 
 @section('content')
+<div class="container">
 
     <div class="row">
         <div class="col-lg-12 margin-tb">
@@ -30,7 +31,7 @@ $_pageSubtitle = '';
                 <h2>Articles</h2>
             </div>
             <div class="pull-right">
-                <a href="{{ route('articles.create') }}" class="btn btn-success">Create New Article</a>
+                <a href="{{ route('dashboard::articles.create') }}" class="btn btn-success">Create New Article</a>
             </div>
         </div>
     </div>
@@ -57,9 +58,9 @@ $_pageSubtitle = '';
                 <td>{{ $article->title }}</td>
                 <td>{{ $article->body }}</td>
                 <td>
-                    <a href="" class="btn btn-info">Show</a>
-                    <a href="" class="btn btn-primary">Edit</a>
-                    <form action="{{ action('ArticleController@destroy', $article->id) }}" method="post">
+                    <a href="{{ route('dashboard::articles.show', $article->id) }}" class="btn btn-info">Show</a>
+                    <a href="{{ route('dashboard::articles.edit', $article->id) }}" class="btn btn-primary">Edit</a>
+                    <form action="{{ action('Dashboard\ArticleController@destroy', $article->id) }}" method="post" style="display:inline">
                         {{ csrf_field() }}
                         <input type="hidden" name="_method" value="DELETE">
                         <button type="submit" class="btn btn-danger">Delete</button>
@@ -69,7 +70,7 @@ $_pageSubtitle = '';
             @endforeach
         </tbody>
     </table>
-    
+</div>   
     {{ $articles->links() }}
 @endsection
 
