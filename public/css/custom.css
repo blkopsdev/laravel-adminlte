@@ -4,3 +4,12 @@
 table {
     background-color: white;
 }
+ul.collapse {
+    padding-left: 25px;
+}
+ul.collapse li {
+    position: relative;
+}
+ul.collapse li a{
+    padding: 12px 5px 12px 15px;
+}
