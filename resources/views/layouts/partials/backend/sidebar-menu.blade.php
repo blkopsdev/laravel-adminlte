@@ -6,22 +6,10 @@
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
         </a>
     </li>
-    <li>
-        <a href="#article_menu" data-toggle="collapse">
-            <i class="fa fa-file-text"></i> Articles
+    <li class="{{ \App\Utils::checkRoute(['dashboard::articles.index', 'admin::index']) ? 'active': '' }}">
+        <a href="{{ route('dashboard::articles.index') }}">
+            <i class="fa fa-file-text"></i> <span>Dashboard</span>
         </a>
-        <ul class="collapse" data-widget="tree" id="article_menu">
-            <li class="{{ \App\Utils::checkRoute(['dashboard::articles.index', 'user::index']) ? 'active': '' }}">
-                <a href="{{ route('dashboard::articles.index') }}">
-                    <i class="fa fa-file-text"></i> <span>Show Articles</span>
-                </a>
-            </li>
-            <li class="{{ \App\Utils::checkRoute(['dashboard::articles.create', 'user::index']) ? 'active': '' }}">
-                <a href="{{ route('dashboard::articles.index') }}">
-                    <i class="fa fa-file-text"></i> <span>Create New Articles</span>
-                </a>
-            </li>
-        </ul>
     </li>
     @if (Auth::user()->can('viewList', \App\User::class))
         <li class="{{ \App\Utils::checkRoute(['admin::users.index', 'admin::users.create']) ? 'active': '' }}">
@@ -31,10 +19,3 @@
         </li>
     @endif
 </ul>
-<script>
-    if($('ul.collapse li').hasClass('active')) {
-        $('ul.collapse').addClass('in');
-        console.log('true');
-    }
-    
-</script>

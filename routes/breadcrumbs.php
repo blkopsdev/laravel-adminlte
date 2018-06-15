@@ -42,38 +42,26 @@ Breadcrumbs::register('profile', function ($breadcrumbs) {
     $breadcrumbs->push('Profile', route('dashboard::profile'));
 });
 //Dashboard > Article
-$resources = [
-    'articles' => 'Articles',
-];
-foreach ($resources as $resource => $data) {
-    $parent = 'dashboard';
-    $title = $data;
-    if (is_array($data)) {
-        $title = $data['title'];
-        $parent = $data['parent'];
-    }
-    $resource = 'dashboard::' . $resource;
 
     // List
-    Breadcrumbs::register($resource, function ($breadcrumbs) use ($resource, $title, $parent) {
-        $breadcrumbs->parent($parent);
-        $breadcrumbs->push($title, route($resource.'.index'));
+    Breadcrumbs::register('articles', function ($breadcrumbs) {
+        $breadcrumbs->parent('dashboard');
+        $breadcrumbs->push('Articles', route('dashboard::articles.index'));
     });
     // Create
-    Breadcrumbs::register($resource.'.create', function ($breadcrumbs) use ($resource) {
-        $breadcrumbs->parent($resource);
-        $breadcrumbs->push('Create', route($resource.'.create'));
+    Breadcrumbs::register('articles_create', function ($breadcrumbs) {
+        $breadcrumbs->parent('articles');
+        $breadcrumbs->push('Create', route('dashboard::articles.create'));
     });
     // Edit
-    Breadcrumbs::register($resource.'.edit', function ($breadcrumbs, $id) use ($resource) {
-        $breadcrumbs->parent($resource);
-        $breadcrumbs->push('Edit', route($resource.'.edit', $id));
+    Breadcrumbs::register('articles_edit', function ($breadcrumbs, $article) {
+        $breadcrumbs->parent('articles');
+        $breadcrumbs->push('Edit', route('dashboard::articles.edit', $article->id));
     });
-    Breadcrumbs::register($resource.'.show', function ($breadcrumbs, $id) use ($resource) {
-        $breadcrumbs->parent($resource);
-        $breadcrumbs->push('Edit', route($resource.'.show', $id));
+    Breadcrumbs::register('articles_show', function ($breadcrumbs, $article) {
+        $breadcrumbs->parent('articles');
+        $breadcrumbs->push('Show', route('dashboard::articles.show', $article->id));
     });
-}
 
 // Admin
 Breadcrumbs::register('admin', function ($breadcrumbs) {

@@ -8,7 +8,7 @@ $_pageSubtitle = '';
 
 {{-- Breadcrumbs --}}
 @section('breadcrumbs')
-    {!! Breadcrumbs::render('dashboard') !!}
+    {!! Breadcrumbs::render('articles_edit', $article) !!}
 @endsection
 
 {{-- Page Title --}}
