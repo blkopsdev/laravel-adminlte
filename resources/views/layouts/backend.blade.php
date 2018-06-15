@@ -36,6 +36,7 @@
         <link href="{{ asset('css/backend.css?version=' . config('adminlte.version')) }}" rel="stylesheet">
         <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 
+        <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -102,7 +103,7 @@
         <!-- ./wrapper -->
 
         <!-- jQuery 3 -->
-        <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+        
         <!-- Bootstrap 3.3.7 -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!-- SlimScroll -->
