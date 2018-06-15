@@ -80,7 +80,7 @@ class ArticleController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'body' => 'requied'
+            'body' => 'required'
         ]);
         Article::find($id)->update($request->all());
         return redirect()->route('dashboard::articles.index')->with('success', 'Article updated successfully');

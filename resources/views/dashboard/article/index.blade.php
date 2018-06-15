@@ -60,11 +60,13 @@ $_pageSubtitle = '';
                 <td>
                     <a href="{{ route('dashboard::articles.show', $article->id) }}" class="btn btn-info">Show</a>
                     <a href="{{ route('dashboard::articles.edit', $article->id) }}" class="btn btn-primary">Edit</a>
-                    <form action="{{ action('Dashboard\ArticleController@destroy', $article->id) }}" method="post" style="display:inline">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+                    @if (Auth::user()->is_admin == 1)
+                        <form action="{{ action('Dashboard\ArticleController@destroy', $article->id) }}" method="post" style="display:inline">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    @endif
                 </td>
             </tr>
             @endforeach

@@ -27,7 +27,7 @@ $_pageSubtitle = '';
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Create Article</h2>
+                <h2>Edit Article</h2>
             </div>
             <div class="pull-right">
                 <a href="{{ route('dashboard::articles.index') }}" class="btn btn-primary">Back</a>
@@ -46,20 +46,21 @@ $_pageSubtitle = '';
         </div>
     @endif
 
-    <form action="{{ route('dashboard::articles.store') }}" method="post">
+    <form action="{{ route('dashboard::articles.update', $article->id) }}" method="post">
         {{ csrf_field() }}
+        <input name="_method" type="hidden" value="PATCH">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <input type="hidden" value="{{csrf_token()}}" name="_token" />
                     <strong>Titlt:</strong>
-                    <input type="text" name="title" placeholder="Title" class="form-control">
+                    <input type="text" name="title" placeholder="Title" class="form-control" value="{{ $article->title }}">
                 </div>
                 <div class="form-group">
                     <strong>Body:</strong>
-                    <textarea name="body" id="" placeholder="Body" rows="10" class="form-control"></textarea>
+                    <textarea name="body" id="" placeholder="Body" rows="10" class="form-control">{{ $article->body }}</textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Create</button>
+                <button type="submit" class="btn btn-primary">Update</button>
             </div>
             
         </div>

@@ -8,7 +8,7 @@
     </li>
     <li class="{{ \App\Utils::checkRoute(['dashboard::articles.index', 'user::index']) ? 'active': '' }}">
         <a href="{{ route('dashboard::articles.index') }}">
-            <i class="fa fa-file-text"> <span>Articles</span></i>
+            <i class="fa fa-file-text"></i> <span>Articles</span>
         </a>
     </li>
     @if (Auth::user()->can('viewList', \App\User::class))
